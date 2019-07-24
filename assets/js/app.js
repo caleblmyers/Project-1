@@ -8,7 +8,7 @@ var keyword;
 
 var themeDark = false;
 
-var siteURL = 'https://cassidygroenendaal.github.io/Project-1/';
+var siteURL = 'https://caleblmyers.github.io/Project-1/'
 var openWeatherKey = '280deca1e7bba83d640479281597834f';
 
 //==================================================
@@ -17,7 +17,7 @@ var openWeatherKey = '280deca1e7bba83d640479281597834f';
 
 function transitionTheme() {
 	$(document.documentElement).addClass('transition');
-	setTimeout(function() {
+	setTimeout(function () {
 		$(document.documentElement).removeClass('transition');
 	}, 1000);
 }
@@ -33,38 +33,35 @@ function initMap() {
 	var searchParams = new URLSearchParams(currentUrl.search);
 	// The location of the venue
 	var location = {
-		lat : parseFloat(searchParams.get('lat')),
-		lng : parseFloat(searchParams.get('lng'))
+		lat: parseFloat(searchParams.get('lat')),
+		lng: parseFloat(searchParams.get('lng'))
 	};
 
 	initWeather(location.lat, location.lng);
 
 	// The map, centered at the venue
 	var map = new google.maps.Map(document.getElementById('js-map'), {
-		zoom   : 15,
-		center : location
+		zoom: 15,
+		center: location
 	});
 	// The marker, positioned at the venue
 	var marker = new google.maps.Marker({
-		position : location,
-		map      : map
+		position: location,
+		map: map
 	});
 }
 
 function initWeather(lat, lng) {
 	if (lat) {
 		var queryURL =
-			'https://api.openweathermap.org/data/2.5/weather?lat=' +
-			lat +
-			'&lon=' +
-			lng +
-			'&APPID=' +
-			openWeatherKey;
+			'https://api.openweathermap.org/data/2.5/weather?lat=' + lat +
+			'&lon=' + lng +
+			'&APPID=' + openWeatherKey;
 
 		$.ajax({
-			url    : queryURL,
-			method : 'GET'
-		}).then(function(res) {
+			url: queryURL,
+			method: 'GET'
+		}).then(function (res) {
 			var temp = (res.main.temp * (9 / 5) - 459.67).toFixed(1);
 			var desc = res.weather[0].description;
 			console.log(res.main.temp);
@@ -77,10 +74,7 @@ function initWeather(lat, lng) {
 function searchDetails() {
 	var searchKeyword = $('#js-input-details-search').val().trim();
 	localStorage.setItem('searchKeyword', searchKeyword);
-	window.open(
-		siteURL + 'index.html?keyword=' + searchKeyword,
-		'_blank'
-	);
+	window.open(siteURL + 'index.html?keyword=' + searchKeyword, '_blank');
 }
 
 function grabImg(imgArray) {
@@ -122,9 +116,9 @@ function mainSearch() {
 			'&locale=*&includeSpellcheck=yes';
 
 		$.ajax({
-			url    : queryURL,
-			method : 'GET'
-		}).then(function(res) {
+			url: queryURL,
+			method: 'GET'
+		}).then(function (res) {
 			searchCall(res, keyword);
 		});
 	}
@@ -141,8 +135,8 @@ function searchCall(res, key) {
 	} else {
 		$('#js-display-header').html(
 			'Showing results for <span class="result__key" id="js-display-input">' +
-				key +
-				'</span>'
+			key +
+			'</span>'
 		);
 		console.log(key);
 		$('#js-display-row').show();
@@ -220,22 +214,22 @@ function searchCall(res, key) {
 			).append(
 				$(
 					"<a href='./details.html?id=" +
-						searchData.events[i].id +
-						'&lat=' +
-						eventLat +
-						'&lng=' +
-						eventLng +
-						"' target=_blank class='card-link'>"
+					searchData.events[i].id +
+					'&lat=' +
+					eventLat +
+					'&lng=' +
+					eventLng +
+					"' target=_blank class='card-link'>"
 				).append(
 					$(
 						`<div class='card result__card ${classDark} mb-md-3 mb-4'>`
 					).append(
 						$(
 							"<img src='" +
-								imgUrl +
-								"' alt='" +
-								searchData.events[i].name +
-								"' class='card-img-top'>"
+							imgUrl +
+							"' alt='" +
+							searchData.events[i].name +
+							"' class='card-img-top'>"
 						),
 						$("<div class='card-body'>").append(
 							$("<h5 class='card-title mb-1'>").text(
@@ -281,16 +275,16 @@ function checkWindow() {
 //--------------------------------------------------
 
 // Gets event details after the user selects an event and moves to details.html
-$(document).ready(function() {
+$(document).ready(function () {
 	checkWindow();
 	window.addEventListener('resize', checkWindow);
 
-	$('#js-btn-search').on('click', function(e) {
+	$('#js-btn-search').on('click', function (e) {
 		e.preventDefault();
 		mainSearch();
 	});
 
-	$('#js-toggle-theme').on('change', function() {
+	$('#js-toggle-theme').on('change', function () {
 		themeDark = !themeDark;
 		// $(".toggle__switch")
 		transitionTheme();
@@ -314,7 +308,7 @@ $(document).ready(function() {
 		}
 	} else {
 		console.log('Details page!!!');
-		$('#js-btn-details-search').on('click', function(e) {
+		$('#js-btn-details-search').on('click', function (e) {
 			e.preventDefault();
 			searchDetails();
 		});
@@ -330,9 +324,9 @@ $(document).ready(function() {
 			'?apikey=1CDZF2AkHAO8FPwY0r3kQm6bmxI7Vuk5&locale=*&includeSpellcheck=yes';
 
 		$.ajax({
-			url    : queryURL,
-			method : 'GET'
-		}).then(function(res) {
+			url: queryURL,
+			method: 'GET'
+		}).then(function (res) {
 			console.log(res);
 			var imgUrl = grabImg(res.images);
 			$('#js-details-image').attr('src', imgUrl);
@@ -426,10 +420,10 @@ $(document).ready(function() {
 	}
 });
 
-$(window).scroll(function() {
+$(window).scroll(function () {
 	if (
 		$(window).scrollTop() + $(window).height() >
-			$(document).height() - 1 &&
+		$(document).height() - 1 &&
 		searchDataNext !== undefined
 	) {
 		var queryURL =
@@ -438,9 +432,9 @@ $(window).scroll(function() {
 			'&apikey=1CDZF2AkHAO8FPwY0r3kQm6bmxI7Vuk5';
 
 		$.ajax({
-			url    : queryURL,
-			method : 'GET'
-		}).then(function(res) {
+			url: queryURL,
+			method: 'GET'
+		}).then(function (res) {
 			searchCall(res, keyword);
 		});
 	}
